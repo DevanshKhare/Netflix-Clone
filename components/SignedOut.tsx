@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const SignedOut = () => {
@@ -8,7 +9,7 @@ const SignedOut = () => {
             <div className='w-[80%]'>
                 <div className='flex justify-between items-center'>
                 <Image src="/images/logo.png" alt='logo' height={0} width={0} className='h-10 w-auto' unoptimized quality={100}/>
-                <button className='bg-[#E50914] w-[5rem] h-[1.8rem] rounded-md text-white text-[0.9rem]'>Sign In</button>
+                <Link href="/login" className='bg-[#E50914] px-[2rem] py-[0.5rem] rounded-md text-white text-[0.9rem] text-center'>Sign In</Link>
                 </div>
             </div>
             <div className='text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center gap-5'>
