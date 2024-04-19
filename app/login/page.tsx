@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { getUserByEmail } from "@/lib/actions/user.actions";
 
 const loginSchema = z.object({
   email: z.string().min(2, {
@@ -29,8 +30,9 @@ const page = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    const user = await getUserByEmail(values.email)
+
   }
 
   return (
