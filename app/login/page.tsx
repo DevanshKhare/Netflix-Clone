@@ -38,9 +38,9 @@ const page = () => {
       user = await getUserByEmail(values.email)
     } else {
       const registered = await registerUser(values.email, values.password)
-      if(registered) {
-        setIsSignUp(false)
-      }
+      // if(registered) {
+      //   setIsSignUp(false)
+      // }
     }
     if (!user){
       setIsSignUp(true);
