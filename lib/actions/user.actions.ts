@@ -2,6 +2,7 @@
 
 import User from "../database/modes/user.model";
 import { connectToDB } from "../database/mongoose";
+import bcrypt from "bcrypt"
 
 export async function getUserByEmail(email: string): Promise<boolean> {
   try {
@@ -22,10 +23,17 @@ export async function getUserByEmail(email: string): Promise<boolean> {
 export async function registerUser(email: string, password: string){
   try {
     connectToDB();
+    if(!email || !password){
+      throw new Error("Email or password missing")
+    }
+    const salt = 12;
+
+    const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
       email: email,
-      password: password,
+      password: hashedPassword,
     })
+
     if(user){
       return JSON.parse(JSON.stringify(user));
     } else {
@@ -33,5 +41,23 @@ export async function registerUser(email: string, password: string){
     }
   } catch (error) {
     console.log("user.actions:Error creating user", error);
+  }
+}
+
+export async function login(email: string, password: string){
+  try {
+    connectToDB();
+    if(!email || !password){
+      throw new Error("Missing credentails")
+    }
+    const user = await User.findOne({email: email});
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if(passwordMatch){
+      return JSON.parse(JSON.stringify(user));
+    } else {
+      return false
+    }
+  } catch (error) {
+    
   }
 }
