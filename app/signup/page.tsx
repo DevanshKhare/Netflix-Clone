@@ -7,7 +7,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,12 +22,12 @@ const loginSchema = z.object({
     message: "Enter valid email",
   }),
   password: z.string().min(3, {
-    message: "Enter valid password"
+    message: "password cannot be less than 3 characters"
   }),
 });
 
 const page = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
+    const [isExist, setIsExist] = useState(false);
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -38,14 +38,10 @@ const page = () => {
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     const user = await getUserByEmail(values.email)
-    // } else {
-    //   const registered = await registerUser(values.email, values.password)
-    //   if(registered) {
-    //     setIsSignUp(false)
-    //   }
-    // }
-    if (!user){
-      setIsSignUp(true);
+    if(user){
+        setIsExist(true)
+    } else{
+        const registered = await registerUser(values.email, values.password)
     }
   }
 
@@ -66,7 +62,7 @@ const page = () => {
           </div>
         </div>
         <div className="text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-start items-start px-[4rem] bg-black bg-opacity-80 w-[25rem] h-[80%] py-[4rem]">
-          <h1 className="text-[2rem] font-bold">{isSignUp ? "Sign Up": "Sign In"}</h1>
+          <h1 className="text-[2rem] font-bold">Sign Up</h1>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
               <FormField
@@ -74,7 +70,7 @@ const page = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    {isSignUp && <FormLabel className="text-red-600 mb-2rem">User does not exist. Please register!</FormLabel>}
+                    {isExist && <FormLabel className="text-red-600 mb-2rem">User already Exist!</FormLabel>}
                     <FormControl>
                       <Input placeholder="email" {...field} className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900"/>
                     </FormControl>
@@ -99,8 +95,9 @@ const page = () => {
                   </FormItem>
                 )}
               />
-              <Link href="/signup">Create Account</Link>
-              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">{isSignUp ? "Sign Up" : "Sign In"}</Button>
+              <Link href="/login">Already have an account? Sign In</Link>
+
+              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">Sign Up</Button>
             </form>
           </Form>
         </div>
