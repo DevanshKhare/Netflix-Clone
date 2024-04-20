@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getUserByEmail, registerUser } from "@/lib/actions/user.actions";
+import { getUserByEmail, login } from "@/lib/actions/user.actions";
 import Link from "next/link";
 
 const loginSchema = z.object({
@@ -28,6 +28,7 @@ const loginSchema = z.object({
 
 const page = () => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [invalidCredentials, setInvalidCredentails] = useState(false);
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -38,15 +39,19 @@ const page = () => {
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     const user = await getUserByEmail(values.email)
-    // } else {
-    //   const registered = await registerUser(values.email, values.password)
-    //   if(registered) {
-    //     setIsSignUp(false)
-    //   }
-    // }
     if (!user){
       setIsSignUp(true);
+    } else {
+      const userLogin = await login(values.email, values.password)
+      if (!userLogin){
+        setInvalidCredentails(true)
+      }
     }
+  }
+
+  const handleKeyUp = () => {
+    setIsSignUp(false)
+    setInvalidCredentails(false)
   }
 
   return (
@@ -66,7 +71,7 @@ const page = () => {
           </div>
         </div>
         <div className="text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-start items-start px-[4rem] bg-black bg-opacity-80 w-[25rem] h-[80%] py-[4rem]">
-          <h1 className="text-[2rem] font-bold">{isSignUp ? "Sign Up": "Sign In"}</h1>
+          <h1 className="text-[2rem] font-bold">Sign In</h1>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
               <FormField
@@ -76,7 +81,7 @@ const page = () => {
                   <FormItem>
                     {isSignUp && <FormLabel className="text-red-600 mb-2rem">User does not exist. Please register!</FormLabel>}
                     <FormControl>
-                      <Input placeholder="email" {...field} className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900"/>
+                      <Input placeholder="email" {...field} className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900" onKeyUp={handleKeyUp}/>
                     </FormControl>
                     <FormMessage/>
                   </FormItem>
@@ -93,12 +98,14 @@ const page = () => {
                         {...field}
                         className="mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900 bg-opacity-50 mt-[1rem]"
                         type="password"
+                        onKeyUp={handleKeyUp}
                       />
                     </FormControl>
                     <FormMessage/>
                   </FormItem>
                 )}
               />
+              {invalidCredentials && <p className="text-red-600">Invalid Credentials</p>}
               <Link href="/signup">Create Account</Link>
               <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">{isSignUp ? "Sign Up" : "Sign In"}</Button>
             </form>

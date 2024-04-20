@@ -50,6 +50,13 @@ export async function login(email: string, password: string){
     if(!email || !password){
       throw new Error("Missing credentails")
     }
+    const user = await User.findOne({email: email});
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if(passwordMatch){
+      return JSON.parse(JSON.stringify(user));
+    } else {
+      return false
+    }
   } catch (error) {
     
   }
