@@ -48,7 +48,7 @@ export async function login(email: string, password: string){
   try {
     connectToDB();
     if(!email || !password){
-      throw new Error("Missing credentails")
+      throw new Error("Missing login credentails")
     }
     const user = await User.findOne({email: email});
     const passwordMatch = await bcrypt.compare(password, user.password);
