@@ -44,6 +44,9 @@ export const authOptions:any = {
     verifyRequest: "/auth/verify-request", // (used for check email message)
     newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
   },
+  session: {
+    maxAge: 60*1/4
+  }
 };
 
 const handler = NextAuth(authOptions);

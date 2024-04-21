@@ -57,7 +57,7 @@ const page = () => {
         if (userLogin && !userLogin?.ok) {
           setInvalidCredentails(true);
         } else {
-          router.push("/loggeedin");
+          router.push("/loggedhome");
         }
       } catch (error) {
         console.log("error:", error);
