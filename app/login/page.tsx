@@ -117,7 +117,7 @@ const page = () => {
               />
               {invalidCredentials && <p className="text-red-600">Invalid Credentials</p>}
               <Link href="/signup">Create Account</Link>
-              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">{isSignUp ? "Sign Up" : "Sign In"}</Button>
+              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">Sign In</Button>
             </form>
           </Form>
         </div>
