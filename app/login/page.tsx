@@ -16,6 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getUserByEmail, login } from "@/lib/actions/user.actions";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 const loginSchema = z.object({
   email: z.string().min(2, {
@@ -42,9 +43,13 @@ const page = () => {
     if (!user){
       setIsSignUp(true);
     } else {
-      const userLogin = await login(values.email, values.password)
-      if (!userLogin){
-        setInvalidCredentails(true)
+      try {
+        const userLogin = await signIn("credentials", {email: values.email, password: values.password})        
+        if (!userLogin){
+          setInvalidCredentails(true)
+        }
+      } catch (error) {
+        console.log("error:", error)
       }
     }
   }
