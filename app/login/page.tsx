@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getUserByEmail, login } from "@/lib/actions/user.actions";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   email: z.string().min(2, {
@@ -30,6 +31,7 @@ const loginSchema = z.object({
 const page = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [invalidCredentials, setInvalidCredentails] = useState(false);
+  const router = useRouter()
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -44,9 +46,12 @@ const page = () => {
       setIsSignUp(true);
     } else {
       try {
-        const userLogin = await signIn("credentials", {email: values.email, password: values.password})        
-        if (!userLogin){
+        const userLogin = await signIn("credentials", {email: values.email, password: values.password, redirect: false})
+        console.log("userLogin", userLogin)        
+        if (userLogin && !userLogin?.ok){
           setInvalidCredentails(true)
+        } else {
+          router.push("/loggeedin")
         }
       } catch (error) {
         console.log("error:", error)
