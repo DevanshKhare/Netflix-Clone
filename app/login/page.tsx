@@ -31,16 +31,7 @@ const loginSchema = z.object({
 
 
 const page = () => {
-//   useEffect(() => {
-//     // (async () => {
-//     //   const res = await decode({
-//     //     token:
-//     //       "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..vqA5h5JDU2EblFcu.PnsVwkmhlMUS2e9qFpzzoaCEYJhPXlIpGDYsg4XyPE4HU2D8ucO3g-Blm0SR07RsOwg51kcUItU5cfPwDPMbBd3vMdrWCtk9B6SC7c1hXC8xFkKQGfqWGV7J6cm_fUBK0cpxrz90QWq81Zg1ChFt9vjI.MM0Tp5f9UbVi0Cmhql1z9Q",
-//     //     secret: "WwPEqyxZ0PedO4fgDmAox/eSU4JK5sggMhPn08D7uNk=",
-//     //   });
-//     //   console.log("res....................", res);
-//     // })();
-//   }, []);
+
   const [isSignUp, setIsSignUp] = useState(false);
   const [invalidCredentials, setInvalidCredentails] = useState(false);
   const router = useRouter();
