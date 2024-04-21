@@ -10,7 +10,7 @@ const AuthWrapper = ({children}: {children:any}) => {
 
     useEffect(()=>{
         if(oldStatus=="authenticated" && status=="unauthenticated"){
-            router.push("/")
+            // router.push("/")
         }
         setOldStatus(status)
     },[status])
