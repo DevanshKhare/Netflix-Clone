@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   FormControl,
@@ -18,6 +18,7 @@ import { getUserByEmail, login } from "@/lib/actions/user.actions";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { decode } from "next-auth/jwt";
 
 const loginSchema = z.object({
   email: z.string().min(2, {
@@ -28,10 +29,21 @@ const loginSchema = z.object({
   }),
 });
 
+
 const page = () => {
+//   useEffect(() => {
+//     // (async () => {
+//     //   const res = await decode({
+//     //     token:
+//     //       "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..vqA5h5JDU2EblFcu.PnsVwkmhlMUS2e9qFpzzoaCEYJhPXlIpGDYsg4XyPE4HU2D8ucO3g-Blm0SR07RsOwg51kcUItU5cfPwDPMbBd3vMdrWCtk9B6SC7c1hXC8xFkKQGfqWGV7J6cm_fUBK0cpxrz90QWq81Zg1ChFt9vjI.MM0Tp5f9UbVi0Cmhql1z9Q",
+//     //     secret: "WwPEqyxZ0PedO4fgDmAox/eSU4JK5sggMhPn08D7uNk=",
+//     //   });
+//     //   console.log("res....................", res);
+//     // })();
+//   }, []);
   const [isSignUp, setIsSignUp] = useState(false);
   const [invalidCredentials, setInvalidCredentails] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -41,28 +53,31 @@ const page = () => {
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    const user = await getUserByEmail(values.email)
-    if (!user){
+    const user = await getUserByEmail(values.email);
+    if (!user) {
       setIsSignUp(true);
     } else {
       try {
-        const userLogin = await signIn("credentials", {email: values.email, password: values.password, redirect: false})
-        console.log("userLogin", userLogin)        
-        if (userLogin && !userLogin?.ok){
-          setInvalidCredentails(true)
+        const userLogin = await signIn("credentials", {
+          email: values.email,
+          password: values.password,
+          redirect: false,
+        });
+        if (userLogin && !userLogin?.ok) {
+          setInvalidCredentails(true);
         } else {
-          router.push("/loggeedin")
+          router.push("/loggeedin");
         }
       } catch (error) {
-        console.log("error:", error)
+        console.log("error:", error);
       }
     }
   }
 
   const handleKeyUp = () => {
-    setIsSignUp(false)
-    setInvalidCredentails(false)
-  }
+    setIsSignUp(false);
+    setInvalidCredentails(false);
+  };
 
   return (
     <div className='bg-[url("/images/hero.jpg")] h-screen w-full relative bg-no-repeat bg-center bg-cover'>
@@ -89,11 +104,20 @@ const page = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    {isSignUp && <FormLabel className="text-red-600 mb-2rem">User does not exist. Please register!</FormLabel>}
+                    {isSignUp && (
+                      <FormLabel className="text-red-600 mb-2rem">
+                        User does not exist. Please register!
+                      </FormLabel>
+                    )}
                     <FormControl>
-                      <Input placeholder="email" {...field} className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900" onKeyUp={handleKeyUp}/>
+                      <Input
+                        placeholder="email"
+                        {...field}
+                        className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900"
+                        onKeyUp={handleKeyUp}
+                      />
                     </FormControl>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -111,13 +135,17 @@ const page = () => {
                         onKeyUp={handleKeyUp}
                       />
                     </FormControl>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
-              {invalidCredentials && <p className="text-red-600">Invalid Credentials</p>}
+              {invalidCredentials && (
+                <p className="text-red-600">Invalid Credentials</p>
+              )}
               <Link href="/signup">Create Account</Link>
-              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">Sign In</Button>
+              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">
+                Sign In
+              </Button>
             </form>
           </Form>
         </div>
