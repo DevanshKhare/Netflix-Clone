@@ -48,7 +48,6 @@ export async function getUserByEmailOrUsername(username: string): Promise<boolea
       }
     ]
     })
-    console.log("user.....", user)
     if(user) return true;
     return false
   } catch (error) {

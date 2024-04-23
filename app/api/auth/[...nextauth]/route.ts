@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { decode } from "next-auth/jwt";
 
-export const authOptions:any = {
+export const authOptions: any = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -13,21 +13,20 @@ export const authOptions:any = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith" },
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.username || !credentials?.password) {
           throw new Error("Credentials missing");
         }
 
-
-        const user = await login(credentials?.email, credentials?.password);
+        const user = await login(credentials?.username, credentials?.password);
         // Add logic here to look up the user from the credentials supplied
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return user
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
@@ -45,7 +44,19 @@ export const authOptions:any = {
     newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   session: {
-    maxAge: 60*60
+    maxAge: (60 * 1) / 4,
+  },
+  callbacks: {
+    async jwt({token, user}:{token:any, user:any}): Promise<any>{
+      if(user){
+        token.username = user.username
+      }
+      return token;
+    },
+    async session({session, token}: {session: any, token: any}): Promise<any>{
+      session.user.username = token.username
+      return session
+    }
   }
 };
 
