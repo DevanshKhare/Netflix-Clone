@@ -5,7 +5,6 @@ import { nonAccessibleRoutes, signedNonAccessibleRoutes } from "./Constants"
 export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
   function middleware(req) {
-    console.log("req.", req.nextauth)
     if(!req.nextauth.token && nonAccessibleRoutes.includes(req.nextUrl.pathname)){
         return NextResponse.redirect(new URL('/login', req.url))
     }
