@@ -81,13 +81,22 @@ export async function registerUser(email: string, password: string, username: st
   }
 }
 
-export async function login(email: string, password: string){
+export async function login(username: string, password: string){
   try {
     connectToDB();
-    if(!email || !password){
+    if(!username || !password){
       throw new Error("Missing login credentails")
     }
-    const user = await User.findOne({email: email});
+    const user = await User.findOne({
+      $or: [
+        {
+          email: username,
+        },
+        {
+          username: username,
+        },
+      ],
+    });
     const passwordMatch = await bcrypt.compare(password, user.password);
     if(passwordMatch){
       return JSON.parse(JSON.stringify(user));
