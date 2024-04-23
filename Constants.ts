@@ -1,2 +1,2 @@
-export const nonAccessibleRoutes = ["/loggedhome"]
-export const signedNonAccessibleRoutes= ["/login", "/signup"]
+export const nonAccessibleRoutes = ["/loggedhome", "/profiles"]
+export const signedNonAccessibleRoutes= ["/login", "/signup", "/"]
