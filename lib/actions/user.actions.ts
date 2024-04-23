@@ -20,7 +20,23 @@ export async function getUserByEmail(email: string): Promise<boolean> {
   return false;
 }
 
-export async function registerUser(email: string, password: string){
+export async function getUserByUsername(username: string): Promise<boolean> {
+  try {
+    connectToDB();
+    const user = await User.findOne({
+      username: username,
+    });
+    if (user) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.log("user.actions:Error fetching user", error);
+  }
+  return false;
+}
+
+export async function registerUser(email: string, password: string, username: string){
   try {
     connectToDB();
     if(!email || !password){
@@ -32,6 +48,7 @@ export async function registerUser(email: string, password: string){
     const user = await User.create({
       email: email,
       password: hashedPassword,
+      username: username
     })
 
     if(user){

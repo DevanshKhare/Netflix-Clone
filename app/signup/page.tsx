@@ -7,14 +7,18 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getUserByEmail, registerUser } from "@/lib/actions/user.actions";
+import {
+  getUserByEmail,
+  getUserByUsername,
+  registerUser,
+} from "@/lib/actions/user.actions";
 import Link from "next/link";
 
 const loginSchema = z.object({
@@ -22,28 +26,45 @@ const loginSchema = z.object({
     message: "Enter valid email",
   }),
   password: z.string().min(3, {
-    message: "password cannot be less than 3 characters"
+    message: "password cannot be less than 3 characters",
+  }),
+  username: z.string().min(3, {
+    message: "username cannot be less than 3 characters",
   }),
 });
 
 const page = () => {
-    const [isExist, setIsExist] = useState(false);
+  const [isEmailExist, setIsEmailExist] = useState(false);
+  const [usernameExist, setUsernameExist] = useState(false);
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
+      username: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    const user = await getUserByEmail(values.email)
-    if(user){
-        setIsExist(true)
-    } else{
-        const registered = await registerUser(values.email, values.password)
+    const userByEmail = await getUserByEmail(values.email);
+    const userByUsername = await getUserByUsername(values.username);
+    if (userByEmail) {
+      setIsEmailExist(true);
+    } else if (userByUsername) {
+      setUsernameExist(true);
+    } else {
+      const registered = await registerUser(
+        values.email,
+        values.password,
+        values.username
+      );
     }
   }
+
+  const handleKeyUp = () => {
+    setIsEmailExist(false);
+    setUsernameExist(false);
+  };
 
   return (
     <div className='bg-[url("/images/hero.jpg")] h-screen w-full relative bg-no-repeat bg-center bg-cover'>
@@ -69,12 +90,43 @@ const page = () => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
-                    {isExist && <FormLabel className="text-red-600 mb-2rem">User already Exist!</FormLabel>}
+                  <FormItem className="mb-[1rem]">
+                    {isEmailExist && (
+                      <FormLabel className="text-red-600 mb-2rem">
+                        Account already exists with this email
+                      </FormLabel>
+                    )}
                     <FormControl>
-                      <Input placeholder="email" {...field} className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900"/>
+                      <Input
+                        placeholder="email"
+                        {...field}
+                        className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900"
+                        onKeyUp={handleKeyUp}
+                      />
                     </FormControl>
-                    <FormMessage/>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    {usernameExist && (
+                      <FormLabel className="text-red-600 mb-2rem">
+                        Username already used
+                      </FormLabel>
+                    )}
+                    <FormControl>
+                      <Input
+                        placeholder="username"
+                        {...field}
+                        className="mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900"
+                        onKeyUp={handleKeyUp}
+                      />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -89,15 +141,18 @@ const page = () => {
                         {...field}
                         className="mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900 bg-opacity-50 mt-[1rem]"
                         type="password"
+                        onKeyUp={handleKeyUp}
                       />
                     </FormControl>
-                    <FormMessage/>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
               <Link href="/login">Already have an account? Sign In</Link>
 
-              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">Sign Up</Button>
+              <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">
+                Sign Up
+              </Button>
             </form>
           </Form>
         </div>
