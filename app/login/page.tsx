@@ -14,14 +14,14 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getUserByEmail, login } from "@/lib/actions/user.actions";
+import { getUserByEmail, getUserByEmailOrUsername, login } from "@/lib/actions/user.actions";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { decode } from "next-auth/jwt";
 
 const loginSchema = z.object({
-  email: z.string().min(2, {
+  username: z.string().min(2, {
     message: "Enter valid email",
   }),
   password: z.string().min(3, {
@@ -38,19 +38,19 @@ const page = () => {
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    const user = await getUserByEmail(values.email);
+    const user = await getUserByEmailOrUsername(values.username);
     if (!user) {
       setIsSignUp(true);
     } else {
       try {
         const userLogin = await signIn("credentials", {
-          email: values.email,
+          username: values.username,
           password: values.password,
           redirect: false,
         });
@@ -92,7 +92,7 @@ const page = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
               <FormField
                 control={form.control}
-                name="email"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
                     {isSignUp && (
@@ -102,7 +102,7 @@ const page = () => {
                     )}
                     <FormControl>
                       <Input
-                        placeholder="email"
+                        placeholder="username or email"
                         {...field}
                         className="mt-[2rem] mb-[1rem] h-[3.5rem] rounded-sm bg-zinc-900"
                         onKeyUp={handleKeyUp}

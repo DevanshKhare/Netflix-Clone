@@ -36,6 +36,26 @@ export async function getUserByUsername(username: string): Promise<boolean> {
   return false;
 }
 
+export async function getUserByEmailOrUsername(username: string): Promise<boolean> {
+  try {
+    connectToDB();
+    const user = await User.findOne({
+      $or: [{
+        email: username
+      },
+      {
+        username: username
+      }
+    ]
+    })
+    console.log("user.....", user)
+    if(user) return true;
+    return false
+  } catch (error) {
+    console.log("user.actions:Error fetching user", error);
+  }
+  return false
+}
 export async function registerUser(email: string, password: string, username: string){
   try {
     connectToDB();
