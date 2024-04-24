@@ -17,7 +17,7 @@ const page = () => {
             <div className='text-white self-start text-[2rem] font-bold text-center w-full'>Who is watching?</div>
             <div className='flex items-center justify-center w-[80%] h-[80%]'>
                 <div className='flex items-center flex-col cursor-pointer'>
-                  <Link href={`/profiles/${session?.user?.username}`}>
+                  <Link href={`/profiles/${session?.user?.username}`} className='flex items-center flex-col'>
                     <Image src="/images/avatar.png" alt='avatar' height={0} width={0} className='rounded-sm h-[8rem] w-[8rem]' unoptimized/>
                     <p className='text-white mt-[2rem]'>{session?.user?.username}</p>
                   </Link>
