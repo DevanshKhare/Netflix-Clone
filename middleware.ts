@@ -22,5 +22,5 @@ export default withAuth(
 )
 
 export const config = {
-  matcher: ["/login", "/loggedhome", "/signup", "/", "/profiles"],
+  matcher: ["/login", "/loggedhome", "/signup", "/", "/profiles", "/profiles/:path"],
 }
