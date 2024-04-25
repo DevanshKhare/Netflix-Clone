@@ -27,3 +27,18 @@ export const NavItems = [
     link: "/",
   },
 ];
+
+export const DropdownMenuItems = [
+  {
+    text: "Profile",
+    link: "/#"
+  },
+  {
+    text: "Billing",
+    link: "/#"
+  },
+  {
+    text: "Subscription",
+    link: "/#"
+  }
+]
