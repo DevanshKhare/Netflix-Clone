@@ -1,6 +1,6 @@
 "use server";
 
-import User from "../database/modes/user.model";
+import User from "../database/models/user.model";
 import { connectToDB } from "../database/mongoose";
 import bcrypt from "bcrypt"
 

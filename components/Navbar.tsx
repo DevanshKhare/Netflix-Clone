@@ -19,7 +19,7 @@ import { signOut } from 'next-auth/react';
 const Navbar = () => {
   return (
     <>
-      <div className=" mx-[2rem] py-4 px-2 flex flex-row items-center">
+      <div className="mx-[2rem] py-4 px-2 flex flex-row items-center sticky z-10">
         <Image
           src="/images/logo.png"
           alt="logo"
