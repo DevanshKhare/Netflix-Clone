@@ -59,7 +59,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator/>
-              <DropdownMenuItem className='cursor-pointer' onClick={()=>signOut}><IoIosLogOut fontSize={23}/>&nbsp;Logout</DropdownMenuItem>
+              <DropdownMenuItem className='cursor-pointer' onClick={()=>signOut()}><IoIosLogOut fontSize={23}/>&nbsp;Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
