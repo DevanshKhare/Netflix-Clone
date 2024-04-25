@@ -44,7 +44,7 @@ export const authOptions: any = {
     newUser: "/auth/new-user", // New users will be directed here on first sign in (leave the property out if not of interest)
   },
   session: {
-    maxAge: (60 * 1) / 4,
+    maxAge: (60 *60),
   },
   callbacks: {
     async jwt({token, user}:{token:any, user:any}): Promise<any>{
