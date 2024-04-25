@@ -52,7 +52,7 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className='bg-[#0f1014] border text-white'>
               {DropdownMenuItems.map((item) => (
-                <DropdownMenuItem className="cursor-pointer hover:bg-slate-800 text-gray-400">
+                <DropdownMenuItem className="cursor-pointer hover:bg-slate-800 text-gray-400" key={item.text}>
                     <Link href={item.link}>
                         {item.text}
                     </Link>
