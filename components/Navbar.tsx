@@ -1,3 +1,4 @@
+"use client"
 import { NavItems, DropdownMenuItems } from '@/Constants'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { IoIosLogOut } from "react-icons/io";
+import { signOut } from 'next-auth/react';
 
 const Navbar = () => {
   return (
@@ -47,16 +50,16 @@ const Navbar = () => {
                 className="outline-none border-none"
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
+            <DropdownMenuContent className='bg-[#0f1014] border text-white'>
               {DropdownMenuItems.map((item) => (
-                <DropdownMenuItem className="cursor-pointer">
+                <DropdownMenuItem className="cursor-pointer hover:bg-slate-800 text-gray-400">
                     <Link href={item.link}>
                         {item.text}
                     </Link>
                 </DropdownMenuItem>
               ))}
+              <DropdownMenuSeparator/>
+              <DropdownMenuItem className='cursor-pointer' onClick={()=>signOut}><IoIosLogOut fontSize={23}/>&nbsp;Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
