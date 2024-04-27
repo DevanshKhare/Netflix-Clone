@@ -3,12 +3,13 @@ import Image from "next/image";
 import React from "react";
 
 const Trending = ({ movies }: { movies: movieInterface[] }) => {
+  console.log(movies)
   return (
-    <div className="text-white relative w-[95%] m-auto mt-5 text-[1.5rem]">
-      <h1>Trending Now</h1>
-      <div className="h-auto flex flex-wrap mt-2 cursor-pointer">
+    <div className="text-white relative w-[95%] m-auto mt-5">
+      <h1 className=" text-[1.5rem]">Trending Now</h1>
+      <div className="h-auto flex flex-wrap mt-2">
         {movies.map((movie) => (
-          <div className="m-2 rounded-sm">
+          <div className="m-2 rounded-sm cursor-pointer hover:scale-125 trending">
             <Image
               src={movie?.thumbnailUrl}
               alt="thumbnail"
@@ -17,8 +18,8 @@ const Trending = ({ movies }: { movies: movieInterface[] }) => {
               className="h-[8rem] w-[16rem] rounded-sm"
               unoptimized
             />
-            <div className="w-full h-full hover:block">
-              <h2>Title</h2>
+            <div className="w-full h-full opacity-0 trendingDesc">
+              <h1>{movie.title}</h1>
               <p>Description</p>
             </div>
           </div>
