@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+export interface movieInterface {
+    title: string;
+    description: string;
+    videoUrl: string;
+    thumbnailUrl: string;
+    genre: string;
+    duration: string;
+}
+
 const movieSchema = new mongoose.Schema({
     title: {
         type: String,
