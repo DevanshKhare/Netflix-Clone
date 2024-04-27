@@ -17,6 +17,10 @@ const Trending = ({ movies }: { movies: movieInterface[] }) => {
               className="h-[8rem] w-[16rem] rounded-sm"
               unoptimized
             />
+            <div className="w-full h-full hover:block">
+              <h2>Title</h2>
+              <p>Description</p>
+            </div>
           </div>
         ))}
       </div>
