@@ -9,7 +9,7 @@ const Trending = ({ movies }: { movies: movieInterface[] }) => {
       <h1 className=" text-[1.5rem]">Trending Now</h1>
       <div className="h-auto flex flex-wrap mt-2">
         {movies.map((movie) => (
-          <div className="m-2 rounded-sm cursor-pointer hover:scale-125 trending">
+          <div className="m-2 rounded-sm cursor-pointer hover:scale-110 hover:translate-y-[-2vw] trending">
             <Image
               src={movie?.thumbnailUrl}
               alt="thumbnail"
