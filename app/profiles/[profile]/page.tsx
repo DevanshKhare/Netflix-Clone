@@ -1,4 +1,5 @@
 import BigMovieSection from '@/components/BigMovieSection'
+import FavouritesSection from '@/components/FavouritesSection'
 import Navbar from '@/components/Navbar'
 import Trending from '@/components/Trending'
 import { getMovies } from '@/lib/actions/movie.actions'
@@ -12,6 +13,7 @@ const page = async({params}: {params: {profile: string}}) => {
       <Navbar/>
       <BigMovieSection movies={movies}/>
       <Trending movies={movies}/>
+      <FavouritesSection/>
     </div>
   )
 }

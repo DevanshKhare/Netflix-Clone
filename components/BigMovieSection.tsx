@@ -4,7 +4,6 @@ import React from 'react'
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
 const BigMovieSection = async({movies}:{movies: movieInterface[]}) => {
-  // const movies = await getMovies();
   if(!movies?.length) return <div>Loading...</div>
   const randomMovie = movies[Math.floor(Math.random()*movies?.length)]
   return (
