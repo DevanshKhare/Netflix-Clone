@@ -133,7 +133,7 @@ const page = () => {
               {invalidCredentials && (
                 <p className="text-red-600">Invalid Credentials</p>
               )}
-              <Link href="/signup">Create Account</Link>
+              <span className="text-zinc-400 text-[0.9rem]">New to Netflix?</span><Link href="/signup" className="text-[0.9rem]"> Sign up now.</Link>
               <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">
                 Sign In
               </Button>

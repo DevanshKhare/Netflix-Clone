@@ -148,7 +148,7 @@ const page = () => {
                   </FormItem>
                 )}
               />
-              <Link href="/login">Already have an account? Sign In</Link>
+              <span className="text-zinc-400 text-[0.9rem]">Already have an account? </span><Link href="/login" className="text-[0.9rem]">Sign In</Link>
 
               <Button type="submit" className="w-[100%] bg-red-600 mt-[3rem]">
                 Sign Up
