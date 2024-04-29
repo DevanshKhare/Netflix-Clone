@@ -1,16 +1,16 @@
-"use client"
+"use client";
+import { addOrRemoveFavourite } from "@/lib/actions/user.actions";
 import { movieInterface } from "@/lib/database/models/movie.model";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import { FaCirclePlay } from "react-icons/fa6";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { FaCheck } from "react-icons/fa6";
 
-const MovieCard = ({ movie }: { movie: movieInterface }) => {
-  const { data: session } = useSession();
-  const handleFavourite = async (event: any) => {
-    console.log(event.target, movie);
-    // await addOrRemoveFavourite(session?.user?.email)
+const MovieCard = ({ movie, favourites, user }: { movie: movieInterface, favourites: string[], user: string }) => {
+  const isFavourite = favourites.includes(movie?._id);
+  const handleFavourite = async () => {
+      await addOrRemoveFavourite(user, movie?._id, isFavourite);
   };
   return (
     <div className="m-2 rounded-sm cursor-pointer hover:scale-110 hover:translate-y-[-2vw] trending">
@@ -24,11 +24,15 @@ const MovieCard = ({ movie }: { movie: movieInterface }) => {
       />
       <div className="w-full h-full opacity-0 trendingDesc mt-5 text-[0.8rem] pl-2">
         <FaCirclePlay fontSize={30} className="mb-2 inline-block" />
-        <IoAddCircleOutline
-          fontSize={30}
-          className="ml-2 mb-2 inline-block"
-          onClick={handleFavourite}
-        />
+        {isFavourite ? (
+          <FaCheck fontSize={30} className="ml-2 mb-2 inline-block" onClick={handleFavourite}/>
+        ) : (
+          <IoAddCircleOutline
+            fontSize={30}
+            className="ml-2 mb-2 inline-block"
+            onClick={handleFavourite}
+          />
+        )}
         <h1 className="text-[1.2rem]">{movie.title}</h1>
         <p>{movie.duration}</p>
         <p className="text-teal-700">{movie.genre}</p>

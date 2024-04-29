@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import User from "../database/models/user.model";
 import { connectToDB } from "../database/mongoose";
 import bcrypt from "bcrypt"
@@ -11,7 +12,7 @@ export async function getUserByEmail(email: string): Promise<boolean> {
       email: email,
     });
     if (user) {
-      return true;
+      return user;
     }
     return false;
   } catch (error) {
@@ -55,6 +56,7 @@ export async function getUserByEmailOrUsername(username: string): Promise<boolea
   }
   return false
 }
+
 export async function registerUser(email: string, password: string, username: string){
   try {
     connectToDB();
@@ -104,5 +106,33 @@ export async function login(username: string, password: string){
     }
   } catch (error) {
     
+  }
+}
+
+export async function addOrRemoveFavourite(email: string, movie: string, exist: boolean){
+  try {
+    connectToDB();
+    let config;
+    if(exist) {
+      config = {
+        $pull: {
+          favourites: movie
+        }
+      }
+    } else {
+      config = {
+        $push: {
+          favourites: movie
+        }
+      }
+    }
+    await User.findOneAndUpdate({
+      email: email
+    }, 
+      config
+    )
+    revalidatePath("/")
+  } catch (error) {
+    console.log("Error while adding or removing to favourites", error)
   }
 }

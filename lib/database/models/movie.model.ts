@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface movieInterface {
+    _id: string
     title: string;
     description: string;
     videoUrl: string;
