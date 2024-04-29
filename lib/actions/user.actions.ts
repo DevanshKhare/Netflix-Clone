@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import User from "../database/models/user.model";
 import { connectToDB } from "../database/mongoose";
 import bcrypt from "bcrypt"
+import Movie from "../database/models/movie.model";
 
 export async function getUserByEmail(email: string): Promise<boolean> {
   try {
@@ -134,5 +135,18 @@ export async function addOrRemoveFavourite(email: string, movie: string, exist: 
     revalidatePath("/")
   } catch (error) {
     console.log("Error while adding or removing to favourites", error)
+  }
+}
+
+export async function getUserFavouriteMovies(email: string){
+  try {
+    connectToDB();
+    const movies = await User.findOne({email:email}).select("favourites").populate({
+        path: "favourites",
+        model: Movie,
+    })
+    return movies.favourites
+  } catch (error) {
+    console.log("error..........", error)
   }
 }
