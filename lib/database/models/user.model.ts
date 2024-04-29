@@ -14,7 +14,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    favourites: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Movie"
+        }
+    ]
 })
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
