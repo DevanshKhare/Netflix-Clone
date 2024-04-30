@@ -13,13 +13,13 @@ const MovieCard = ({ movie, favourites, user }: { movie: movieInterface, favouri
       await addOrRemoveFavourite(user, movie?._id, isFavourite);
   };
   return (
-    <div className="m-2 rounded-sm cursor-pointer hover:scale-110 hover:translate-y-[-2vw] trending">
+    <div className="relative m-2 rounded-md cursor-pointer hover:scale-110 hover:translate-y-[-8%] trending top-0 trending w-[20rem] transition duration-500">
       <Image
         src={movie?.thumbnailUrl}
         alt="thumbnail"
         width={0}
         height={0}
-        className="h-[8rem] w-[16rem] rounded-sm"
+        className="h-[10rem] w-[20rem] rounded-sm"
         unoptimized
       />
       <div className="opacity-0 trendingDesc mt-5 text-[0.8rem] pl-2 w-full">
