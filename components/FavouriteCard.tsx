@@ -6,6 +6,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
 import { movieInterface } from "@/lib/database/models/movie.model";
 import { addOrRemoveFavourite } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation"
 
 const FavouriteCard = ({
   movie,
@@ -14,6 +15,8 @@ const FavouriteCard = ({
   movie: movieInterface;
   user: string;
 }) => {
+  const router = useRouter()
+
   const handleRemoveFavourite = async () => {
     await addOrRemoveFavourite(user, movie?._id, true);
   };
@@ -28,7 +31,7 @@ const FavouriteCard = ({
         unoptimized
       />
       <div className="opacity-0 trendingDesc mt-5 text-[0.8rem] pl-2 w-full group-hover:opacity-100">
-        <FaCirclePlay fontSize={30} className="mb-2 inline-block" />
+        <FaCirclePlay fontSize={30} className="mb-2 inline-block" onClick={()=>router.push(`/movie/${movie?._id}`)}/>
         <FaCheck
           fontSize={30}
           className="ml-2 mb-2 inline-block"
