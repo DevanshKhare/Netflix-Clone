@@ -11,3 +11,13 @@ export async function getMovies(){
         console.log("Error fetching movies")
     }
 }
+
+export async function getMovieById(id:string){
+    try {
+        connectToDB();
+        const movie = await Movie.findById(id);
+        return movie;
+    } catch (error) {
+        console.log("Error fetching movie details")
+    }
+}
