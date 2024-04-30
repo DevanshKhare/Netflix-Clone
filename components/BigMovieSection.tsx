@@ -12,6 +12,7 @@ const BigMovieSection = async ({ movies }: { movies: movieInterface[] }) => {
       <video
         src={randomMovie?.videoUrl}
         muted
+        autoPlay
         className="relative h-[100%] w-screen object-cover brightness-[60%]"
         loop
       ></video>
