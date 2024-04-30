@@ -74,7 +74,5 @@
       @apply bg-background text-foreground;
     }
   }
-  .trending:hover .trendingDesc{
-    opacity: 100;
-  }
+
  

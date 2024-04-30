@@ -13,16 +13,16 @@ const MovieCard = ({ movie, favourites, user }: { movie: movieInterface, favouri
       await addOrRemoveFavourite(user, movie?._id, isFavourite);
   };
   return (
-    <div className="relative m-2 rounded-md cursor-pointer hover:scale-110 hover:translate-y-[-8%] trending top-0 trending w-[20rem] transition duration-500">
+    <div className="relative m-2 rounded-md cursor-pointer hover:scale-110 hover:translate-y-[-8%] trending top-0 trending w-[20rem] transition duration-500 group">
       <Image
         src={movie?.thumbnailUrl}
         alt="thumbnail"
         width={0}
         height={0}
-        className="h-[10rem] w-[20rem] rounded-sm"
+        className="h-[10rem] w-[20rem] rounded-sm "
         unoptimized
       />
-      <div className="opacity-0 trendingDesc mt-5 text-[0.8rem] pl-2 w-full">
+      <div className="opacity-0 mt-5 text-[0.8rem] pl-2 w-full group-hover:opacity-100">
         <FaCirclePlay fontSize={30} className="mb-2 inline-block" />
         {isFavourite ? (
           <FaCheck fontSize={30} className="ml-2 mb-2 inline-block" onClick={handleFavourite}/>
