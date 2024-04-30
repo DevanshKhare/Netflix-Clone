@@ -13,11 +13,12 @@ const FavouriteCard = ({
   user,
 }: {
   movie: movieInterface;
-  user: string;
+  user: string | null | undefined;
 }) => {
   const router = useRouter()
 
   const handleRemoveFavourite = async () => {
+    if(!user) return null
     await addOrRemoveFavourite(user, movie?._id, true);
   };
   return (

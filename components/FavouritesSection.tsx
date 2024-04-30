@@ -15,8 +15,8 @@ const FavouritesSection = async () => {
     <div className="text-white relative w-[95%] m-auto mt-5">
       <h1 className="text-[1.5rem]">Favourites</h1>
       <div className="h-auto flex flex-wrap mt-2">
-        {favourites.map((movie: movieInterface) => (
-          <FavouriteCard movie={JSON.parse(JSON.stringify(movie))} user={session?.user?.email} />
+        {favourites.map((movie: movieInterface, index: number) => (
+          <FavouriteCard movie={JSON.parse(JSON.stringify(movie))} user={session?.user?.email} key={index}/>
         ))}
       </div>
     </div>

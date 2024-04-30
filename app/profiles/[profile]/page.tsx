@@ -11,8 +11,8 @@ const page = async({params}: {params: {profile: string}}) => {
   return (
     <div className='bg-[#0f1014] h-screen'>
       <Navbar/>
-      <BigMovieSection movies={movies}/>
-      <Trending movies={movies}/>
+      <BigMovieSection movies={JSON.parse(JSON.stringify(movies))}/>
+      <Trending movies={JSON.parse(JSON.stringify(movies))}/>
       <FavouritesSection/>
     </div>
   )
