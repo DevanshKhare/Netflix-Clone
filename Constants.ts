@@ -1,5 +1,5 @@
 export const nonAccessibleRoutes = ["/loggedhome", "/profiles"];
-export const signedNonAccessibleRoutes = ["/login", "/signup", "/"];
+export const signedNonAccessibleRoutes = ["/login", "/signup"];
 
 export const NavItems = [
   {

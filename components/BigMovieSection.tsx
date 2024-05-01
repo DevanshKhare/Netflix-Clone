@@ -4,7 +4,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { FaPlayCircle } from "react-icons/fa";
 import Link from "next/link";
 
-const BigMovieSection = async ({ movies }: { movies: movieInterface[] }) => {
+const BigMovieSection = ({ movies }: { movies: movieInterface[] }) => {
   if (!movies?.length) return <div>Loading...</div>;
   const randomMovie = movies[Math.floor(Math.random() * movies?.length)];
   return (
