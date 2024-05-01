@@ -20,7 +20,7 @@ const AuthWrapper = ({ children }: { children: any }) => {
 
   return <>
   <SessionContext.Provider value={JSON.stringify(session)}>
-    {session && pathname!="/profiles" && <Navbar/>}
+    {session && pathname!="/profiles" && !pathname.startsWith("/movie/") && <Navbar/>}
     {children}
   </SessionContext.Provider>
   </>;

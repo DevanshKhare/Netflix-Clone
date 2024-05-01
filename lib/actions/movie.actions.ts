@@ -21,3 +21,18 @@ export async function getMovieById(id:string){
         console.log("Error fetching movie details")
     }
 }
+
+export async function searchMovie(searchString: string){
+    try {
+        connectToDB();
+        const movies = await Movie.find({
+            $or: [
+                {title: {$regex: searchString, $options: 'i'}},
+                {description: {$regex: searchString, $options: "i"}}
+            ]
+        })
+        return movies;
+    } catch (error) {
+        console.log("Error searching movie")
+    }
+}
