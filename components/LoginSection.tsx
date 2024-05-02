@@ -52,9 +52,12 @@ const LoginSection = () => {
           password: values.password,
           redirect: false,
         });
+        console.log("userLogin",userLogin)
         if (userLogin && !userLogin?.ok) {
+          console.log("inside if")
           setInvalidCredentails(true);
         } else {
+          console.log("inside else")
           router.push("/profiles");
         }
       } catch (error) {
