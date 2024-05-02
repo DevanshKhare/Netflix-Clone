@@ -18,7 +18,6 @@ import { getUserByEmailOrUsername } from "@/lib/actions/user.actions";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { decode } from "next-auth/jwt";
 
 const loginSchema = z.object({
   username: z.string().min(2, {
@@ -41,7 +40,8 @@ const LoginSection = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof loginSchema>) {
+  async function onSubmit(values: z.infer<typeof loginSchema>, e:any) {
+    e.preventDefault();
     const user = await getUserByEmailOrUsername(values.username);
     if (!user) {
       setIsSignUp(true);
@@ -52,12 +52,9 @@ const LoginSection = () => {
           password: values.password,
           redirect: false,
         });
-        console.log("userLogin",userLogin)
         if (userLogin && !userLogin?.ok) {
-          console.log("inside if")
           setInvalidCredentails(true);
         } else {
-          console.log("inside else")
           router.push("/profiles");
         }
       } catch (error) {
