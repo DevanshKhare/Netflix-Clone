@@ -36,7 +36,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="mx-[2rem] py-4 px-2 flex flex-row items-center sticky z-10">
+      <div className="mx-[2rem] max-sm:mx-[0.5rem] py-4 px-2 flex flex-row items-center sticky z-10">
         <Image
           src="/images/logo.png"
           alt="logo"
@@ -45,7 +45,7 @@ const Navbar = () => {
           className="h-10 w-auto"
           unoptimized
         />
-        <div className="flex flex-row text-white ml-[2rem]">
+        <div className="flex flex-row text-white ml-[2rem] max-sm:hidden">
           <ul className="flex flex-row gap-7">
             {NavItems.map((item: { link: string; text: string }) => (
               <Link href={item.link} key={item.text}>
@@ -54,14 +54,14 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        <div className="text-white ml-[auto] gap-6 flex flex-row mr-[1rem] items-center">
+        <div className="text-white ml-[auto] gap-6 flex flex-row mr-[1rem] items-center max-sm:ml-4">
           <Input
             className="bg-transparent border-gray-500 focus-visible:ring-offset-0"
             onChange={handleSearch}
           />
-          <CiSearch fontSize={50} className="cursor-pointer ml-[-1rem]" />
+          <CiSearch fontSize={50} className="cursor-pointer ml-[-1rem] max-sm:hidden" />
 
-          <IoIosNotificationsOutline fontSize={50} />
+          <IoIosNotificationsOutline fontSize={50} className="max-sm:hidden"/>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Image
