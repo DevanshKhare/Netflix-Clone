@@ -14,7 +14,7 @@ const Trending = async({ movies }: { movies: movieInterface[] }) => {
   return (
     <div className="text-white relative w-[95%] m-auto mt-5">
       <h1 className="text-[1.5rem]">Trending Now</h1>
-      <div className="h-auto flex mt-2 border flex-wrap">
+      <div className="h-auto flex mt-2 flex-wrap">
         {movies.map((movie, index: number) => (
           <MovieCard movie={JSON.parse(JSON.stringify(movie))} favourites={JSON.parse(JSON.stringify(user?.favourites))} user={user?.email} key={index}/>
         ))}

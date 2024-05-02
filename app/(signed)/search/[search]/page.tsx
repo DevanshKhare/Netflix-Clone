@@ -11,7 +11,7 @@ const page = async({params}: {params: {search?: string}}) => {
   return (
     <div className="text-white relative w-[95%] m-auto mt-5">
       <h1 className="text-[1.5rem]">Search Results</h1>
-      <div className="h-auto flex mt-2">
+      <div className="h-auto flex mt-2 flex-wrap">
         {movies?.map((movie, index: number) => (
           <MovieCard key={index} movie={movie} search={true}/>
         ))}
