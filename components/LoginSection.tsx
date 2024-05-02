@@ -50,12 +50,11 @@ const LoginSection = () => {
         const userLogin = await signIn("credentials", {
           username: values.username,
           password: values.password,
-          redirect: false,
+          redirect: true,
         });
         if (userLogin && !userLogin?.ok) {
           setInvalidCredentails(true);
         } else {
-          e.preventDefault();
           router.push("/profiles");
         }
       } catch (error) {
