@@ -25,8 +25,8 @@ const SignedOut = () => {
             </Link>
           </div>
         </div>
-        <div className="text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center gap-5">
-          <h1 className="text-[3rem] font-[900] w-max">
+        <div className="text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center items-center gap-5 w-full max-sm:text-center">
+          <h1 className="text-[3rem] font-[900]">
             Unlimited movies, TV shows and more
           </h1>
           <p className="text-[1.5rem] font-[400]">
@@ -36,7 +36,7 @@ const SignedOut = () => {
             Ready to watch? Enter your email to create or restart your
             membership
           </p>
-          <div className="flex flex-row gap-2 items-center">
+          <div className="flex flex-col lg:flex-row gap-5 lg:gap-2 items-center w-full justify-center">
             <input
               type="text"
               className="h-[3.5rem] w-[25rem] bg-gray-600 bg-opacity-30 border-gray-500 border-[1px] rounded-[0.25rem] pl-4"
