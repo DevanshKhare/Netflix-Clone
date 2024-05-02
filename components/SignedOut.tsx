@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import { FaGreaterThan } from "react-icons/fa";
 const SignedOut = () => {
   return (
     <div className='bg-[url("/images/hero.jpg")] h-full w-full relative bg-no-repeat bg-center bg-cover'>
@@ -43,7 +43,7 @@ const SignedOut = () => {
               placeholder="Email address"
             />
             <a className="bg-[#E50914] p-[0.8rem] rounded-[0.25rem] font-bold text-[1.3rem] hover:cursor-pointer tracking-widest">
-              Get Started &nbsp;&gt;
+              Get Started <FaGreaterThan className="inline"/>
             </a>
           </div>
         </div>
