@@ -29,7 +29,7 @@ const SignedOut = () => {
           <h1 className="text-[3rem] font-[900]">
             Unlimited movies, TV shows and more
           </h1>
-          <p className="text-[1.5rem] font-[400]">
+          <p className="text-[1.5rem] font-[400] max-sm:w-[95%]">
             Watch anywhere. Cancel anytime.
           </p>
           <p className="text-[1.25rem] font-[400]">
@@ -39,7 +39,7 @@ const SignedOut = () => {
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-2 items-center w-full justify-center">
             <input
               type="text"
-              className="h-[3.5rem] w-[25rem] bg-gray-600 bg-opacity-30 border-gray-500 border-[1px] rounded-[0.25rem] pl-4"
+              className="h-[3.5rem] w-[25rem] bg-gray-600 bg-opacity-30 border-gray-500 border-[1px] rounded-[0.25rem] pl-4 max-sm:w-[80%]" 
               placeholder="Email address"
             />
             <a className="bg-[#E50914] p-[0.8rem] rounded-[0.25rem] font-bold text-[1.3rem] hover:cursor-pointer tracking-widest">
